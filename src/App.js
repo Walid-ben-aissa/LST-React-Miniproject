@@ -19,7 +19,10 @@ function App() {
     //Getting the list of Tasks using an API rest
     fetch("http://localhost:3030/getall").then((res) => {
       res.json().then((data) => {
-        //Setting the Done tasks in Cards,each with to buttons, toggle done and delete task
+        /*Setting the Done tasks in Cards,each with to buttons, toggle done and delete task.
+        I used the array.map function to return an array of JSX Card elements to then view
+        them directly in the return of the component
+        "Trash" and "Check2" are imported bootstrap icons*/
         setDoneCards(
           data.map((e) => {
             return (
@@ -88,9 +91,10 @@ function App() {
       });
     });
   }, [update]);
-  /*I set the update variable, so that useEffect only retriggers when
-  the update variable is changed, otherwise this would cause an
+  /*I set the update variable in the useEffect dependency array, so that it only 
+  retriggers when the update variable is changed, otherwise this would cause an
   infinite rerender loop.*/
+
   ///////Function that adds a task
   const add = (e) => {
     e.preventDefault();
@@ -104,6 +108,11 @@ function App() {
         }).then((res) => res.json().then((data) => forceUpdate(!update)))
       : alert("Can't add an empty task");
   };
+  /*The return of the component, contains a form at the top with an input and
+  a button to add a task.
+  I put the add function in the onSubmit of the form, 
+  as well as in the onClick of the button, so that it works if you
+  press enter while in the input, or if you want to click the button.*/
   return (
     <div className="App">
       <Card id="addcrd" text="light">

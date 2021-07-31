@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# LST React Mini project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This mini project uses bootstrap, and bootstrap icons
+I recommend reading the comments i made in App.js and server.js to better
+understand the code, otherwise here's a small summary.
 
-## Available Scripts
+## States
 
-In the project directory, you can run:
+I used 3 state variables,
 
-### `yarn start`
+- donecards
+  Which contains an array of JSX Card elements that represents the tasks
+  that are done, they come with 2 buttons, one to toggle the done state of the task
+  and one to delete the task
+- notcards
+  Which contains an array of JSX Card elements that represents the tasks
+  that are yet to be done, same structure as the done tasks
+- update
+  A state variable that I used to force the rerender of the component.
+  used in the useEffect dependency array, so that useEffect only triggers
+  when that state variable is changed.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Managing tasks
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+To add a task, I created a function which i called in the onSubmit in the form
+and in the onClick in the button that's next to the input, I did this so that
+you can add a task by pressing enter, or by pressing the button.
+The function itself is pretty simple, it uses a POST rest API to send
+data to the expressJS server as a JSON object that contains
+{"task":"task to insert","complete":"false"}
+the task newly added is not completed yet, so "complete" is always inserted false.
+Then in the expressJS server, I load the current data.JSON , push into it the
+new task, with an id that's the length + 1, and then i rewrite in the file.
 
-### `yarn test`
+Deleting a task works similarly enough, this time I used a GET rest API to send only
+the id of the task to delete, which is set correctly in each delete button in the cards,
+then in the server I used array.splice with a while loop to find the id to delete,
+then i rewrite in the data.JSON file.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+To toggle a task's complete state, I used a GET rest API with id params, like the delete,
+then a while loop to find the task, and toggling the current complete variable.

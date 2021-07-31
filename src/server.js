@@ -8,13 +8,13 @@ app.use(cors({ orign: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Rest API to get all the tasks
+//GET to get all the tasks
 app.get("/getall", (req, res) => {
   let rawdata = fs.readFileSync(path.resolve(__dirname, "data.json"));
   res.json(JSON.parse(rawdata));
 });
 
-//Rest API to add a task
+//POST to add a task
 app.post("/addtask", (req, res) => {
   let rawdata = fs.readFileSync(path.resolve(__dirname, "data.json"));
   let data = JSON.parse(rawdata);
@@ -26,7 +26,7 @@ app.post("/addtask", (req, res) => {
   res.json("Ok");
 });
 
-//Rest API to delete a task
+//GET to delete a task
 app.get("/deltask/:id", (req, res) => {
   let rawdata = fs.readFileSync(path.resolve(__dirname, "data.json"));
   let data = JSON.parse(rawdata);
@@ -44,7 +44,7 @@ app.get("/deltask/:id", (req, res) => {
   res.json(data[i]);
 });
 
-//Rest API to toggle a task's complete state
+//GET to toggle a task's complete state
 app.get("/toggle/:id", (req, res, next) => {
   let rawdata = fs.readFileSync(path.resolve(__dirname, "data.json"));
   let data = JSON.parse(rawdata);
