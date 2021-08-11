@@ -26,7 +26,7 @@ function App() {
         setDoneCards(
           data.map((e) => {
             return (
-              !e["complete"] && (
+              e["complete"] && (
                 <Card className="todo" text="light">
                   <Card.Body>
                     <h2>{e["task"]}</h2>
@@ -59,7 +59,7 @@ function App() {
         setnotCards(
           data.map((e) => {
             return (
-              e["complete"] && (
+              !e["complete"] && (
                 <Card className="todo" text="light">
                   <Card.Body>
                     <h2>{e["task"]}</h2>
@@ -131,9 +131,9 @@ function App() {
         </Form>
       </Card>
       <h1 className="title">To DO</h1>
-      {donecards}
-      <h1 className="title">Done</h1>
       {notcards}
+      <h1 className="title">Done</h1>
+      {donecards}
     </div>
   );
 }

@@ -1,9 +1,10 @@
-var express = require("express");
-var app = express();
+const express = require("express");
 const fs = require("fs");
 const path = require("path");
-var cors = require("cors");
+const cors = require("cors");
 
+const app = express();
+const port = 3030;
 app.use(cors({ orign: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -63,6 +64,6 @@ app.get("/toggle/:id", (req, res, next) => {
   res.json(data[i]);
 });
 
-app.listen(3030, () => {
-  console.log("Server running on port 3030");
+app.listen(port, () => {
+  console.log(`Server running on ${port}`);
 });
