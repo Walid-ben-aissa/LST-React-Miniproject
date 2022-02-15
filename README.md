@@ -4,6 +4,11 @@ This mini project uses bootstrap, and bootstrap icons
 I recommend reading the comments i made in App.js and server.js to better
 understand the code, otherwise here's a small summary.
 
+# How to run
+
+First use yarn install to install the dependencies, then yarn start in the root of the project.
+Then use node server.js to run the node server.
+
 ## States
 
 I used 3 state variables,
